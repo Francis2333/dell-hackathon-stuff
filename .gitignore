@@ -1,0 +1,38 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node.js
+node_modules/
+.npm/
+.pnpm-store/
+
+# .NET
+bin/
+obj/
+.vs/
+
+# Build and test output
+dist/
+build/
+coverage/
+
+# Editors and operating systems
+.idea/
+*.user
+*.suo
+.DS_Store
+Thumbs.db
+
