@@ -20,19 +20,26 @@ Node 24.19.0 and pnpm 11.19.0 were supplied by Codex's private runtime cache,
 not installed as normal system tools. Python, Conda, uv, Docker, GitHub CLI,
 winget, and npm were not available on the command line.
 
-## Move to the hackathon machine
+## Move to the Ubuntu hackathon machine
 
-Install Git, then run:
+Open a terminal and run:
 
-```powershell
+```bash
+sudo apt-get update
+sudo apt-get install -y git ca-certificates curl build-essential
 git clone https://github.com/Francis2333/dell-hackathon-stuff.git
-Set-Location dell-hackathon-stuff
-powershell -ExecutionPolicy Bypass -File .\scripts\check-environment.ps1
+cd dell-hackathon-stuff
+bash scripts/check-environment.sh
 ```
 
 Copy application source files into this repository on the source machine,
 commit them, and push. On the hackathon machine, use `git pull` to retrieve
 them.
+
+Do not try to copy the Windows runtime directories to Ubuntu. Commit source
+code and dependency manifests, then install Linux-compatible dependencies on
+Ubuntu. Windows-only paths, executables, and native packages will not work
+there.
 
 Do not commit `.env` files, access tokens, private keys, virtual environments,
 `node_modules`, build output, large datasets, or model weights. Create an
@@ -48,6 +55,13 @@ Commit the dependency definition appropriate to the project:
 - .NET: project files plus `global.json`
 - Containers: `Dockerfile` and, when needed, `compose.yaml`
 
-The environment checker reports which manifests and command-line tools are
-available without installing or changing anything.
+The Bash environment checker reports which manifests and command-line tools
+are available on Ubuntu without installing or changing anything. A PowerShell
+version remains available for checking the source Windows machine.
+
+## After adding application code
+
+Run the checker again. It prints the restore command that matches each detected
+dependency manifest. Review that command before running it, especially when the
+project installs native packages or executes third-party build scripts.
 
